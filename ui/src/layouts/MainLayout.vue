@@ -193,6 +193,17 @@ export default {
       }
     }
   },
+  mounted() {
+    var me=this;
+    var userData = localStorage.getItem("$u");
+    if(userData){
+      var uObj=JSON.parse(userData)
+      me.u=uObj;
+      Vue.prototype.$u=uObj;
+      me.log=false;
+      me.login=true;
+    }
+  },
   methods: {
     loginEnterFun1(){
        this.$refs.logpassInput.focus();
@@ -227,6 +238,8 @@ export default {
           }else{
              me.u=r.data;
              Vue.prototype.$u=me.u;
+             localStorage.setItem("token", r.token);
+             localStorage.setItem("$u", JSON.stringify(me.u));
              me.log=false;
              me.login=true;
           }
@@ -237,7 +250,11 @@ export default {
       me.u={
         lid:'游客'
       };
+      localStorage.removeItem("token")
+      localStorage.removeItem("$u")
+      delete Vue.prototype.$u
       me.login=false
+      me.toTravel()
     },
     toTravel(){
       this.link='travel'

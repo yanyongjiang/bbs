@@ -1,7 +1,8 @@
 package com.yyj.apps.bbs.vo;
 
 import lombok.Data;
-import org.beetl.sql.core.annotatoin.*;
+import org.beetl.sql.core.annotatoin.AutoID;
+import org.beetl.sql.core.annotatoin.Table;
 
 import java.io.Serializable;
 

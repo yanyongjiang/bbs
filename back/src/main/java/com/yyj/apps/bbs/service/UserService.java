@@ -9,6 +9,7 @@ import com.yyj.apps.bbs.vo.BbsAttach;
 import com.yyj.apps.bbs.vo.BbsParam;
 import com.yyj.apps.bbs.vo.BbsPost;
 import com.yyj.apps.bbs.vo.BbsUser;
+import com.yyj.apps.framework.util.TokenUtils;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -86,6 +87,7 @@ public class UserService {
             if(pwd.toLowerCase().equals(pw.toLowerCase())||pwd1.toLowerCase().equals(pw.toLowerCase())) {
                 u.setPw(null);
                 r.put("data", u);
+                r.put("token", TokenUtils.sign(u.getLid()));
             }else{
                 r.put("result", "100");
                 r.put("errmsg", "password is wrong");
@@ -186,6 +188,12 @@ public class UserService {
     }
 
     public JSONObject listpost(BbsParam param, JSONObject r) {
+        if("".equals(param.getPty())){
+            String lid=TokenUtils.getTokenAccount();
+            if(lid!=null&&!"".equals(lid)){
+                param.setLid(lid);
+            }
+        }
         Long count = userMapper.getSQLManager().selectSingle("user.listPostCount", param,Long.class);
         List<BbsPost> posts = userMapper.getSQLManager().select("user.listPost", BbsPost.class, param);
         Map p = new HashMap();

@@ -1,8 +1,8 @@
 package com.yyj.apps.framework.listenser;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class CollectdStarterApplicationListener implements ApplicationListener<ContextRefreshedEvent> {

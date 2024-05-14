@@ -30,8 +30,8 @@ listPostCount
 ===
 SELECT count(*)
 FROM bbspost a where a.sta='1'
-@if(isNotEmpty(uid)&&isNotEmpty(pty)&&"3"==pty){
-and a.uid=#uid#
+@if(isNotEmpty(lid)&&isNotEmpty(pty)&&"3"==pty){
+and a.lid=#lid#
 @}
 @else {
     @if(isNotEmpty(pty)){
